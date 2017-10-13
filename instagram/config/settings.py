@@ -23,6 +23,7 @@ CONFIG_SECRET_DIR = os.path.join(ROOT_DIR, '.config_secret')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/static/'
 
 
 # SECRET_KEY 파일을 읽고 그 결과를 변수에 할당
@@ -130,4 +131,4 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
-STATIC_URL = '/static/'
+
