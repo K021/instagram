@@ -19,6 +19,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ROOT_DIR = os.path.dirname(BASE_DIR)
 # SECRET_KEY 파일이 있는 디렉토리 경로
 CONFIG_SECRET_DIR = os.path.join(ROOT_DIR, '.config_secret')
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
+
+
 # SECRET_KEY 파일을 읽고 그 결과를 변수에 할당
 with open(os.path.join(CONFIG_SECRET_DIR, 'settings_common.json'), 'rt') as f:
     config_secret_common_str = f.read()
