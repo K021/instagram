@@ -6,7 +6,7 @@
 ## Secret config JSON files
 `.config_secret/settings_common.json`
 
-```
+```json
 {
     "Django": {
         "secret_key": "<Django secret key value>"
