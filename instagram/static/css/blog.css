@@ -1,0 +1,57 @@
+h1, a {
+    color: #FCA205;
+}
+a:hover {
+  color: #FC1100;
+  text-decoration: none;
+}
+a.right-text {
+  text-align: right;
+  display: inline-block;
+  float: right;
+  margin-top: 10px;
+}
+body {
+  margin-top: 50px;
+  margin-bottom: 100px;
+  padding-left: 15px;
+}
+.content {
+    padding-left: 20px;
+}
+.right-inline{
+  display: inline;
+  float: right;
+}
+.left-inline {
+  display: inline;
+  float: left;
+}
+.blog-title {
+    color: #FCA205;
+    padding-bottom: 20px;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+}
+.post-container > .post {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #999;
+}
+.post-container > .post > p {
+    margin: 0;
+}
+.post-container > .post > p.right-text {
+    text-align: right;
+    font-size: 10px;
+    color: #666;
+    margin: 0px;
+}
+.post-container > .post > p.right-text > strong {
+    width: 30px;
+    display: inline-block;
+    text-align: left;
+}
