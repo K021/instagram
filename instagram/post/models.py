@@ -19,9 +19,10 @@ class Post(models.Model):
         )
          ),
         ('unknown', 'Unknown'),
+        ('', 'Nothing to add'),
     )
     photo = models.ImageField(upload_to='post')
-    text = models.CharField(max_length=50, choices=MEDIA_CHOICES, blank=True, null=True)
+    text = models.CharField(max_length=50, choices=MEDIA_CHOICES, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     @property
