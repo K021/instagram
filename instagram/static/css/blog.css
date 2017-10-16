@@ -1,5 +1,5 @@
 h1, a {
-    color: #FCA205;
+    color: #000;
 }
 a:hover {
   color: #FC1100;
@@ -27,9 +27,10 @@ body {
   display: inline;
   float: left;
 }
-.blog-title {
-    color: #FCA205;
+.header-title {
+    color: #000;
     padding-bottom: 20px;
+    margin-left: 200px;
 }
 
 .container {
@@ -54,4 +55,9 @@ body {
     width: 30px;
     display: inline-block;
     text-align: left;
+}
+
+.comment-delete ::before {
+    content: '\2715';
+    display: block;
 }

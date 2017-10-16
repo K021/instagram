@@ -1,0 +1,35 @@
+<div id="post.{{ post.pk }}" class="post container" style="margin-bottom: 50px">
+    <a href="{% url 'post_detail' pk=post.pk %}">
+        {% if post.photo %}
+        <img src="{{ post.photo.url }}" alt="" width="100%">
+        {% else %}
+        <p>이미지가 없습니다.</p>
+        {% endif %}
+    </a>
+    <p class="right-text" style="margin: 10px 0 10px">{{ post.created_at }} | <strong>Date</strong></p>
+    <div class="comment-list">
+        {% for comment in post.comments.all %}
+            <form action="{% url 'comment_delete' post_pk=post.pk com_pk=comment.pk %}" method="POST" >
+                {% csrf_token %}
+                <p>
+                    <a href="" style="font-weight: bold; padding-right: 5px">User.name </a>
+                    <span>{{ comment.content }}</span>
+                    <button style="float: right; background-color: #FFF; border: 0"><a><span class="comment-delete">x</span></a></button>
+                </p>
+            </form>
+        {% endfor %}
+    </div>
+    <!--댓글 작성란-->
+    <form class="form-horizontal" method="post" style="margin: 20px 0 0" action="{% url 'comment_add' pk=post.pk%}">
+    {% csrf_token %}
+    <div class="form-group" style="margin-bottom: 0;">
+        <label class="col-sm-2 control-label" style="width: 80px">댓글</label>
+        <div class="col-sm-10">
+            <!--<input type="text" style="word-break: break-word;" rows="1">-->
+            <textarea name="content" class="form-control" rows="1"
+                      onkeydown="if (event.keyCode == 13) { this.form.submit(); return false; }"
+                      style="resize: none;"></textarea>
+        </div>
+    </div>
+</form>
+</div>

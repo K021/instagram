@@ -1,0 +1,7 @@
+<div>
+    <form action="{% url 'post_create' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form }}
+        <button>upload</button>
+    </form>
+</div>

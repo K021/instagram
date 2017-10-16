@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import Form
 
 __all__ = (
     'Post',
@@ -7,30 +8,20 @@ __all__ = (
 
 
 class Post(models.Model):
-    MEDIA_CHOICES = (
-        ('Audio', (
-            ('vinyl', 'Vinyl'),
-            ('cd', 'CD'),
-        )
-         ),
-        ('Video', (
-            ('vhs', 'VHS Tape'),
-            ('dvd', 'DVD'),
-        )
-         ),
-        ('unknown', 'Unknown'),
-        ('', 'Nothing to add'),
-    )
     photo = models.ImageField(upload_to='post')
-    text = models.CharField(max_length=50, choices=MEDIA_CHOICES, blank=True)
+    title = models.CharField(max_length=50, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
-    @property
-    def text_display(self):
-        return self.get_text_display()
+    def __str__(self):
+        return f'{self.title} ({self.photo})'
 
 
 class PostComment(models.Model):
-    post = models.ForeignKey(Post)
+    post = models.ForeignKey(Post, related_name='comments')
     content = models.TextField()
     created_time = models.DateTimeField(auto_now_add=True)
+
+
+class Form(Form):
+    pass
+
