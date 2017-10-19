@@ -38,15 +38,25 @@ def post_create(request):
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             print(form.cleaned_data)
-            post = Post.objects.create(photo=form.cleaned_data['photo'])
+            post = Post.objects.create(
+                photo=form.cleaned_data['photo'],
+                title=form.cleaned_data['title'],
+            )
             # return HttpResponse(f'<img src="{post.photo.url}">')
-            return redirect('post_detail', pk=post.pk)
+            return redirect('post:detail', pk=post.pk)
     else:
         form = PostForm()
     context = {
         'form': form,
     }
     return render(request, 'post/post_create.html', context)
+
+
+def post_delete(request, pk):
+    if request.method == 'POST':
+        Post.objects.get(pk=pk).delete()
+        return redirect('main')
+    return
 
 
 def comment_delete(request, post_pk, com_pk):

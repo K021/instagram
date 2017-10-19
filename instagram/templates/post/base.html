@@ -21,13 +21,14 @@
 </head>
 <body>
     <header class="header-container">
-        <h1 class="header-title"><a href="{% url 'post_list' %}">{% block header %}Instagram{% endblock %}</a></h1>
+        <h1 class="header-title"><a href="{% url 'post:list' %}">{% block header %}Instagram{% endblock %}</a></h1>
         <div class="header-login">
 			{% if user.is_authenticated %}
-				{{ user.username }} | <a href="{% url 'logout' %}">로그아웃</a>
+				{{ user.username }} | <a href="{% url 'post:create' %}">글쓰기</a> | <a href="{% url 'member:logout' %}">로그아웃</a>
+
 			{% else %}
-            <a href="{% url 'login' %}">로그인 </a>|
-            <a href="{% url 'signup' %}"> 회원가입</a>
+            <a href="{% url 'member:login' %}">로그인 </a>|
+            <a href="{% url 'member:signup' %}"> 회원가입</a>
 			{% endif %}
         </div>
     </header>

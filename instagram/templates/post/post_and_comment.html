@@ -1,22 +1,29 @@
 
 <div id="post.{{ post.pk }}" class="post container" style="margin-bottom: 50px">
+    <form action="{% url 'post:delete' post.pk %}" method="post" style="float: right">
+        {% csrf_token %}
+        <button class="button-hover-display">삭제하기</button>
+    </form>
     <!--포스트-->
-    <a href="{% url 'post_detail' pk=post.pk %}">
+    <a href="{% url 'post:detail' pk=post.pk %}">
         {% if post.photo %}
         <img src="{{ post.photo.url }}" alt="" width="100%">
         {% else %}
         <p>이미지가 없습니다.</p>
         {% endif %}
     </a>
-    <p class="right-text" style="margin: 10px 0 10px">{{ post.created_at }} | <strong>Date</strong></p>
+    <p class="right-text" style="margin: 10px 0 10px">
+        <span>by {{ post.author.username }} | </span>
+        <span>{{ post.created_at }}</span>
+    </p>
     <!--댓글 목록-->
     <div class="comment-list">
         {% for comment in post.comments.all %}
-            <form action="{% url 'comment_delete' post_pk=post.pk com_pk=comment.pk %}" method="POST" >
+            <form action="{% url 'post:comment_delete' post_pk=post.pk com_pk=comment.pk %}" method="POST" >
                 {% csrf_token %}
                 <div>
                     <div class="comment-content" style="display: inline-block; max-width: 850px;">
-                        <p style="float: left"><a href="" style="font-weight: bold;">User.name </a></p>
+                        <p style="float: left"><a href="" style="font-weight: bold;">{{ comment.author.username }}</a></p>
                         <span style="padding-left: 10px;">{{ comment.content }}</span>
                     </div>
                     <button style="float: right; background-color: #FFF; border: 0"><a><span class="comment-delete">x</span></a></button>
@@ -25,7 +32,7 @@
         {% endfor %}
     </div>
     <!--댓글 작성란-->
-    <form class="form-horizontal" method="post" style="margin: 20px 0 0" action="{% url 'comment_add' pk=post.pk%}">
+    <form class="form-horizontal" method="post" style="margin: 20px 0 0" action="{% url 'post:comment_add' pk=post.pk%}">
     {% csrf_token %}
     <div class="form-group" style="margin-bottom: 0;">
         <label class="col-sm-2 control-label" style="width: 80px">댓글</label>

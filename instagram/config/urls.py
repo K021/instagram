@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf import settings
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.conf.urls.static import static
 from django.contrib import admin
 
@@ -27,16 +27,11 @@ urlpatterns = [
 
     # post application
     url(r'^$', post_list, name='main'),
-    url(r'^post/$', post_list, name='post_list'),
-    url(r'^post/(?P<pk>\d+)/$', post_detail, name='post_detail'),
-    url(r'^post/(?P<pk>\d+)/comment/add/$', comment_add, name='comment_add'),
-    url(r'^post/create/$', post_create, name='post_create'),
-    url(r'^post/(?P<post_pk>\d+)/comment/(?P<com_pk>\d+)/delete/$', comment_delete, name='comment_delete'),
+    url(r'^post/', include('post.urls', namespace='post')),
 
     # member application
-    url(r'^member/signup/$', signup, name='signup'),
-    url(r'^member/login/$', login, name='login'),
-    url(r'^member/logout$', logout, name='logout'),
+    url(r'^member/', include('member.urls', namespace='member')),
+
 ]
 # media url
 urlpatterns += static(

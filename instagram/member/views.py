@@ -1,5 +1,5 @@
 from django.contrib.auth import get_user_model, logout as dj_logout
-from django.http import HttpResponse, request
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from member.forms import SignupForm, LoginForm
 
@@ -11,7 +11,7 @@ def login(request):
         form = LoginForm(request.POST)
         if form.is_valid():
             form.login(request)
-            return redirect('post_list')
+            return redirect('main')
     else:
         form = LoginForm()
     context = {
@@ -22,7 +22,7 @@ def login(request):
 
 def logout(request):
     dj_logout(request)
-    return redirect('post_list')
+    return redirect('main')
 
 
 def signup(request):
@@ -41,7 +41,7 @@ def signup(request):
             #     return HttpResponse(f'Username {username} is already exist')
             # 없으면 User 생성
             form.signup()
-            return redirect('post_list')
+            return redirect('main')
     else:
         form = SignupForm()
     context = {

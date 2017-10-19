@@ -23,6 +23,7 @@ class LoginForm(forms.Form):
         )
     )
 
+    # self.user 할당
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.user = None
@@ -30,6 +31,7 @@ class LoginForm(forms.Form):
     def clean(self):
         username = self.cleaned_data['username']
         password = self.cleaned_data['password']
+        # 해당 정보의 유저가 존재하는지 판단
         self.user = authenticate(
             username=username,
             password=password,
