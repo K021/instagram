@@ -34,6 +34,8 @@ def comment_add(request, pk):
 
 
 def post_create(request):
+    if not request.user.is_authenticated():
+        return redirect('member:login')
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
@@ -41,6 +43,7 @@ def post_create(request):
             post = Post.objects.create(
                 photo=form.cleaned_data['photo'],
                 title=form.cleaned_data['title'],
+                author=request.user,
             )
             # return HttpResponse(f'<img src="{post.photo.url}">')
             return redirect('post:detail', pk=post.pk)
