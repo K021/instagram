@@ -4,13 +4,11 @@
 <div class="signup container narrow">
     <form action="" method="post">
         {% csrf_token %}
-        <!--<label>Username: <input type="text" name="username"></label>-->
-        <!--<label>Password: <input type="password" name="password"></label>-->
         <div class="username signup-label">
             <p style="margin-bottom: 3px">
                 <span style="font-weight: bold; font-size: 18px">{{ form.username.label }} </span>
-                {% if form.username.errors %}
-                <span style="padding-left: 100px; color: #FC1100;">*{{ form.username.errors | striptags }}</span>
+                {% if form.errors %}
+                <span style="padding-left: 120px; color: #FC1100;">*{{ form.non_field_errors | striptags }}</span>
                 {% endif %}
             </p>
             {{ form.username }}
@@ -24,14 +22,7 @@
             </p>
             {{ form.password }}
         </div>
-        <div class="password signup-label">
-            <!--<p style="margin-bottom: 3px">-->
-                <!--<span style="font-weight: bold; font-size: 18px">{{ form.password.label }}</span>-->
-            <!--</p>-->
-            {{ form.password_validation }}
-        </div>
-        <button class="btn btn-primary btn-block signup-button">Sign up</button>
+        <button class="btn btn-primary btn-block signup-button">Log in</button>
     </form>
 </div>
 {% endblock %}
-

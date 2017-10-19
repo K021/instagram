@@ -1,3 +1,4 @@
+
 <div id="post.{{ post.pk }}" class="post container" style="margin-bottom: 50px">
     <!--포스트-->
     <a href="{% url 'post_detail' pk=post.pk %}">
@@ -13,11 +14,13 @@
         {% for comment in post.comments.all %}
             <form action="{% url 'comment_delete' post_pk=post.pk com_pk=comment.pk %}" method="POST" >
                 {% csrf_token %}
-                <p>
-                    <a href="" style="font-weight: bold; padding-right: 5px">User.name </a>
-                    <span>{{ comment.content }}</span>
+                <div>
+                    <div class="comment-content" style="display: inline-block; max-width: 850px;">
+                        <p style="float: left"><a href="" style="font-weight: bold;">User.name </a></p>
+                        <span style="padding-left: 10px;">{{ comment.content }}</span>
+                    </div>
                     <button style="float: right; background-color: #FFF; border: 0"><a><span class="comment-delete">x</span></a></button>
-                </p>
+                </div>
             </form>
         {% endfor %}
     </div>
@@ -29,7 +32,8 @@
         <div class="col-sm-10">
             <textarea name="content" class="form-control" rows="1"
                       onkeydown="if (event.keyCode == 13) { this.form.submit(); return false; }"
-                      style="resize: none;"></textarea>
+                      onkeyup="textAreaAdjust(this)"
+                      style="resize: none; overflow:hidden;"></textarea>
         </div>
     </div>
 </form>

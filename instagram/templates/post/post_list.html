@@ -1,5 +1,7 @@
 {% extends 'post/base.html' %}
 
+{% block title %}Post List{% endblock %}
+
 {% block content %}
 {% for post in posts %}
     {% include 'post/post_and_comment.html' %}

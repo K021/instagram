@@ -1,7 +1,6 @@
-
 <!doctype html>
-
 {% load static %}
+
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -12,10 +11,26 @@
     <link rel="stylesheet" href="{% static 'css/blog.css' %}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
-    <title>Post list</title>
+    <script>
+    function textAreaAdjust(o) {
+        o.style.height = "1px";
+        o.style.height = (o.scrollHeight)+"px";
+    }
+    </script>
+    <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
-    <h1 class="header-title"><a href="{% url 'post_list' %}">{% block title %}Instagram{% endblock %}</a></h1>
+    <header class="header-container">
+        <h1 class="header-title"><a href="{% url 'post_list' %}">{% block header %}Instagram{% endblock %}</a></h1>
+        <div class="header-login">
+			{% if user.is_authenticated %}
+				{{ user.username }} | <a href="{% url 'logout' %}">로그아웃</a>
+			{% else %}
+            <a href="{% url 'login' %}">로그인 </a>|
+            <a href="{% url 'signup' %}"> 회원가입</a>
+			{% endif %}
+        </div>
+    </header>
     <div class="post-container">
         {% block content %}
         {% endblock %}

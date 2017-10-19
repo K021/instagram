@@ -29,6 +29,8 @@ STATICFILES_DIRS = [
 STATIC_URL = '/static/'
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 
+AUTH_USER_MODEL = 'member.User'
+
 
 # SECRET_KEY 파일을 읽고 그 결과를 변수에 할당
 with open(os.path.join(CONFIG_SECRET_DIR, 'settings_common.json'), 'rt') as f:
@@ -60,6 +62,7 @@ INSTALLED_APPS = [
     'django_extensions',
 
     'post',
+    'member',
 ]
 
 MIDDLEWARE = [

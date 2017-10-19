@@ -18,7 +18,7 @@ from django.conf.urls import url
 from django.conf.urls.static import static
 from django.contrib import admin
 
-from member.views import signup
+from member.views import signup, login, logout
 from post.views import post_list, post_detail, comment_add, post_create, comment_delete
 
 urlpatterns = [
@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
     # post application
+    url(r'^$', post_list, name='main'),
     url(r'^post/$', post_list, name='post_list'),
     url(r'^post/(?P<pk>\d+)/$', post_detail, name='post_detail'),
     url(r'^post/(?P<pk>\d+)/comment/add/$', comment_add, name='comment_add'),
@@ -34,6 +35,8 @@ urlpatterns = [
 
     # member application
     url(r'^member/signup/$', signup, name='signup'),
+    url(r'^member/login/$', login, name='login'),
+    url(r'^member/logout$', logout, name='logout'),
 ]
 # media url
 urlpatterns += static(
