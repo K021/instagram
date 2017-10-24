@@ -18,20 +18,15 @@ from django.conf.urls import url, include
 from django.conf.urls.static import static
 from django.contrib import admin
 
-from member.views import signup, login, logout
-from post.views import post_list, post_detail, comment_add, post_create, comment_delete
+from post.views import post_list
 
 urlpatterns = [
-    # admin application
     url(r'^admin/', admin.site.urls),
-
-    # post application
     url(r'^$', post_list, name='main'),
+
     url(r'^post/', include('post.urls', namespace='post')),
 
-    # member application
     url(r'^member/', include('member.urls', namespace='member')),
-
 ]
 # media url
 urlpatterns += static(

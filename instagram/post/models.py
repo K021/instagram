@@ -14,7 +14,7 @@ class PostManager(models.Manager):
 
 class Post(models.Model):
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
-    photo = models.ImageField(upload_to='post', null=True)
+    photo = models.ImageField(upload_to='post')
     title = models.CharField(max_length=50, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -26,6 +26,9 @@ class Post(models.Model):
     def __str__(self):
         title = self.title if self.title else f'Post#{self.pk}'
         return f'{title} ({self.photo})'
+
+    # def get_absolute_url(self):
+    #     return f'/post/{self.pk}/'
 
 
 class PostComment(models.Model):
