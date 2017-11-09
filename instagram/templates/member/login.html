@@ -26,7 +26,9 @@
     </form>
     <a href="//www.facebook.com/v2.10/dialog/oauth?
     client_id={{ facebook_app_id }}&
+    scope={{ facebook_scope|join:',' }}&
     redirect_uri={{ request.scheme }}://{{ request.META.HTTP_HOST }}{% url 'member:facebook_login' %}"
-       class="btn btn-info btn-block">페이스북 로그인</a>
+       class="btn btn-info btn-block"
+       style="background-color: #3b5998; border-color: #3b5998">Log in with Facebook</a>
 </div>
 {% endblock %}

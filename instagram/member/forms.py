@@ -116,10 +116,16 @@ class SignupForm(UserCreationForm):
         model = User
         fields = (
             'username',
+            'nickname',
             'img_profile',
         )
         widgets = {
             'username': forms.TextInput(
+                attrs={
+                    'class': 'form-control',
+                }
+            ),
+            'nickname': forms.TextInput(
                 attrs={
                     'class': 'form-control',
                 }
@@ -131,3 +137,42 @@ class SignupForm(UserCreationForm):
                 }
             ),
         }
+
+
+class ProfileForm(forms.Form):
+    nickname = forms.CharField(
+        initial='nickname',
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+            }
+        )
+    )
+    img_profile = forms.ImageField(
+        widget=forms.ClearableFileInput(
+            attrs={
+                'class': 'form-control',
+            }
+        )
+    )
+    introduction = forms.CharField(
+        initial='',
+        widget=forms.Textarea(
+            attrs={
+                'class': 'form-control',
+                'rows': '2',
+            }
+        )
+    )
+
+    def update(self, user):
+        nickname = self.cleaned_data['nickname']
+        img_profile = self.cleaned_data['img_profile']
+        introduction = self.cleaned_data['introduction']
+        if nickname:
+            user.nickname = nickname
+        if img_profile:
+            user.img_profile = img_profile
+        if introduction:
+            user.introduction = introduction
+        user.save()

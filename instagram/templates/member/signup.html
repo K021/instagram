@@ -32,10 +32,23 @@
             {{ form.password2 }}
             <!--{{ form.password_validation }}-->
         </div>
-        <span style="font-weight: bold; font-size: 18px">{{ form.img_profile.label }}</span>
-        <div>{{ form.img_profile }}</div>
+        <div class="nickname signup-label">
+            <span style="font-weight: bold; font-size: 18px">{{ form.nickname.label }}</span>
+            <div>{{ form.nickname }}</div>
+        </div>
+        <div class="img-profile signup-label">
+            <span style="font-weight: bold; font-size: 18px">{{ form.img_profile.label }} </span>
+            <span class="font-size-10" style="float: right; line-height: 22px"> *선택사항입니다.</span>
+            <div>{{ form.img_profile }}</div>
+        </div>
         <button class="btn btn-primary btn-block signup-button">Sign up</button>
     </form>
+    <a href="//www.facebook.com/v2.10/dialog/oauth?
+    client_id={{ facebook_app_id }}&
+    scope={{ facebook_scope|join:',' }}&
+    redirect_uri={{ request.scheme }}://{{ request.META.HTTP_HOST }}{% url 'member:facebook_login' %}"
+       class="btn btn-info btn-block"
+       style="background-color: #3b5998; border-color: #3b5998">Sign up with Facebook</a>
 </div>
 {% endblock %}
 

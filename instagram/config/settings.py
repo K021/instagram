@@ -26,6 +26,7 @@ STATIC_DIR = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
     STATIC_DIR,
 ]
+STATIC_ROOT = os.path.join(ROOT_DIR, '.static_root')
 STATIC_URL = '/static/'
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 
@@ -46,6 +47,7 @@ SECRET_KEY = config_secret_common['Django']['secret_key']
 # Facebook
 FACEBOOK_APP_ID = config_secret_common['facebook']['app_id']
 FACEBOOK_APP_SECRET_CODE = config_secret_common['facebook']['secret_code']
+FACEBOOK_SCOPE = ['email', 'user_friends', 'public_profile']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -64,6 +66,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'django_extensions',
+    # 'storages',
+    'rest_framework',
 
     'post',
     'member',

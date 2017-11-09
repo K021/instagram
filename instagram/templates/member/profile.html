@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Username Post{% endblock %}
+
+{% block content %}
+<header class="profile-header container">
+    <!--<div class="profile-img img-circle div-size-200 relative float-left"><img class="img-responsive abs-height-center" src="{{ user.img_profile.url }}" alt=""></div>-->
+    <div class="profile-img-cover"></div>
+    <div class="profile-detail-container float-left">
+        <div class="profile-detail-line line-1 clearfix">
+            <span class="font-size-25 float-left">{{ user.nickname }}</span>
+            <form action="{% url 'member:profile_update' %}">
+                <button class="btn btn-default btn-xs float-left" style="margin: 7px 0 0 20px">프로필 변경</button>
+            </form>
+        </div>
+        <div class="profile-detail-line line-2 clearfix font-size-15">
+            <span>게시물 </span><b style="margin-left: 3px;"> {{ user.post_set.count }}</b>
+            <span style="margin-left: 10px">팔로우 </span><b style="margin-left: 3px;"> {{ user.stars.count }}</b>
+            <span style="margin-left: 10px">팔로워 </span><b style="margin-left: 3px;"> {{ user.followers.count }}</b>
+        </div>
+        <div class="profile-detail-line line-3 clearfix font-size-15">
+            <p>{{ user.introduction }}</p>
+        </div>
+    </div>
+</header>
+{% if not posts %}
+<div class="container">
+    <div class="text-center font-size-25"
+         style="height: 200px; width: 100%; line-height: 200px;
+         color: #999; background-color: #fbf9f9">게시물이 없습니다</div>
+</div>
+{% endif %}
+{% for post in posts %}
+    {% include 'post/post_and_comment.html' %}
+{% endfor %}
+{% endblock %}

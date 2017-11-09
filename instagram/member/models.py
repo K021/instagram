@@ -11,14 +11,28 @@ class UserManager(DjangoUserManager):
 
 
 class User(AbstractUser):
+    DEFAULT_IMG_PATH = 'default/profile.jpg'
+    # facebook / django 유저 선택
+    USER_TYPE_DJANGO = 'D'
+    USER_TYPE_FACEBOOK = 'F'
+    USER_TYPE = (
+        (USER_TYPE_DJANGO, 'Django Login'),
+        (USER_TYPE_FACEBOOK, 'Facebook Login'),
+    )
+
+    # field
+    nickname = models.CharField('닉네임', max_length=50,)
     img_profile = models.ImageField(
-        '프로필 이미지', upload_to='user', null=True, default='default/profile.jpg')
+        '프로필 이미지', upload_to='user', null=True,
+        default=DEFAULT_IMG_PATH,)
     liked_posts = models.ManyToManyField(
-        'post.Post', verbose_name='좋아요 포스트 목록')
+        'post.Post', verbose_name='좋아요 포스트 목록',)
     stars = models.ManyToManyField(
         'User', symmetrical=False, through='Relation',
-        related_name='followers'
-    )
+        verbose_name='follow',
+        related_name='followers',)
+    user_type = models.CharField(max_length=1, choices=USER_TYPE)
+    introduction = models.CharField(max_length=100, blank=True,)
 
     objects = UserManager()
 
@@ -35,6 +49,12 @@ class User(AbstractUser):
     def unlike(self, post):
         self.liked_posts.remove(post)
 
+    def like_toggle(self, post):
+        if self.liked_posts.filter(pk=post.pk).exists():
+            self.unlike(post)
+        else:
+            self.like(post)
+
     def follow_toggle(self, user):
         if not isinstance(user, User):
             raise ValueError('Invalid argument. User type is required.')
@@ -49,17 +69,16 @@ class User(AbstractUser):
         # else:
         #     self.stars.add(user)
 
-    def follow(self, user):
-        self.stars.add(user)
-
-    def unfollow(self, user):
-        self.stars.remove(user)
+    def set_default_img_profile(self):
+        self.img_profile.delete()
+        self.img_profile = self.DEFAULT_IMG_PATH
+        self.save()
 
 
 class Relation(models.Model):
     RELATION_TYPE = (
-        ('FOLLOW', 'Following relation'),
-        ('BLOCK', 'Blocking relation'),
+        ('F', 'Following relation'),
+        ('B', 'Blocking relation'),
     )
     follower = models.ForeignKey(
         User, on_delete=models.CASCADE,
@@ -70,5 +89,7 @@ class Relation(models.Model):
         related_name='myrelations_with_followers'
     )
     date = models.DateField(auto_now_add=True)
-    relation_type = models.CharField(max_length=10, choices=RELATION_TYPE, default='FOLLOW')
+    relation_type = models.CharField(max_length=1, choices=RELATION_TYPE, default='FOLLOW')
 
+    def __str__(self):
+        return f'"{self.follower.username}" follows "{self.star.username}"'

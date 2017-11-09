@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container narrow">
+    <form action="{% url 'member:profile_update' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-field">
+            <span class="form-label">{{ form.nickname.label }}</span>
+            {{ form.nickname }}
+        </div>
+        <div class="form-field">
+            <span class="form-label">{{ form.img_profile.label }}</span>
+            {{ form.img_profile }}
+        </div>
+        <div class="form-field">
+            <span class="form-label">{{ form.introduction.label }}</span>
+            {{ form.introduction }}
+        </div>
+        <button class="btn btn-primary btn-block">Change Profile</button>
+    </form>
+</div>
+{% endblock %}

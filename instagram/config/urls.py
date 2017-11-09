@@ -18,6 +18,7 @@ from django.conf.urls import url, include
 from django.conf.urls.static import static
 from django.contrib import admin
 
+from post.apis import PostList
 from post.views import post_list
 
 urlpatterns = [
@@ -25,8 +26,9 @@ urlpatterns = [
     url(r'^$', post_list, name='main'),
 
     url(r'^post/', include('post.urls', namespace='post')),
-
     url(r'^member/', include('member.urls', namespace='member')),
+
+    url(r'^api/post/', PostList.as_view(), name='asdf'),
 ]
 # media url
 urlpatterns += static(

@@ -28,11 +28,9 @@ def post_detail(request, pk):
 @login_required
 def post_like(request, pk):
     user = request.user
+    post = Post.objects.get(pk=pk)
     if request.method == 'POST':
-        if user.liked_posts.filter(pk=pk).exists():
-            user.unlike(Post.objects.get(pk=pk))
-        else:
-            user.like(Post.objects.get(pk=pk))
+        user.like_toggle(post)
     url = request.META['HTTP_REFERER']
     return redirect(f'{url}#post.{pk}')
 
