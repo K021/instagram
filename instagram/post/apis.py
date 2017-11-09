@@ -30,6 +30,11 @@ class PostList(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericA
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
 
+    # self.create 함수 안에서 쓰인다
+    # APIView 안에 있는 dispatch 안에 self.request = request가 들어있다.
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
+
 
 class PostDetail(APIView):
     def get_object(self, pk):
