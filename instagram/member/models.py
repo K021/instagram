@@ -43,6 +43,8 @@ class User(AbstractUser):
         verbose_name = '사용자'
         verbose_name_plural = f'{verbose_name} 목록'
 
+
+
     def like(self, post):
         self.liked_posts.add(post)
 

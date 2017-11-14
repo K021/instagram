@@ -31,7 +31,11 @@ STATIC_URL = '/static/'
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 
 AUTH_USER_MODEL = 'member.User'
-
+# 기본 인증 백엔드에 Facebook Backend 추가함
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'member.backends.FacebookBackend',
+]
 
 # SECRET_KEY 파일을 읽고 그 결과를 변수에 할당
 with open(os.path.join(CONFIG_SECRET_DIR, 'settings_common.json'), 'rt') as f:
@@ -54,9 +58,15 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# DRF
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    )
+}
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -68,6 +78,7 @@ INSTALLED_APPS = [
     'django_extensions',
     # 'storages',
     'rest_framework',
+    'rest_framework.authtoken',
 
     'post',
     'member',
