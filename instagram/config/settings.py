@@ -20,6 +20,7 @@ ROOT_DIR = os.path.dirname(BASE_DIR)
 # SECRET_KEY 파일이 있는 디렉토리 경로
 CONFIG_SECRET_DIR = os.path.join(ROOT_DIR, '.config_secret')
 
+# MEDIA_ROOT 변경 media 에서 .media 로, ROOT 로
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
@@ -120,8 +121,13 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-DATABASES = config_secret_common['Django']['databases']
-
+# DATABASES = config_secret_common['Django']['databases']
+DATABASES = {
+    "default": {
+      "ENGINE": "django.db.backends.sqlite3",
+      "NAME": os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+  }
 
 # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
