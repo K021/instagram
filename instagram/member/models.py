@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser, UserManager as DjangoUserManager
 from django.db import models
+from rest_framework.authtoken.models import Token
 
 
 class UserManager(DjangoUserManager):
@@ -26,7 +27,7 @@ class User(AbstractUser):
         '프로필 이미지', upload_to='user', null=True,
         default=DEFAULT_IMG_PATH,)
     liked_posts = models.ManyToManyField(
-        'post.Post', verbose_name='좋아요 포스트 목록',)
+        'post.Post', related_name='like_users', verbose_name='좋아요 포스트 목록',)
     stars = models.ManyToManyField(
         'User', symmetrical=False, through='Relation',
         verbose_name='follow',
@@ -43,7 +44,9 @@ class User(AbstractUser):
         verbose_name = '사용자'
         verbose_name_plural = f'{verbose_name} 목록'
 
-
+    @property
+    def token(self):
+        return Token.objects.get_or_create(user=self)[0].key
 
     def like(self, post):
         self.liked_posts.add(post)

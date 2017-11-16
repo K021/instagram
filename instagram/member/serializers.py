@@ -15,15 +15,10 @@ class UserSerializer(serializers.ModelSerializer):
 class SignupSerializer(serializers.ModelSerializer):
     password1 = serializers.CharField(write_only=True)
     password2 = serializers.CharField(write_only=True)
-    token = serializers.SerializerMethodField()
 
     class Meta:
         model = User
         fields = ('username', 'password1', 'password2', 'nickname', 'img_profile', 'user_type', 'token',)
-
-    @staticmethod
-    def get_token(instance):
-        return Token.objects.get_or_create(user=instance)[0].key
 
     def validate(self, data):
         if data['password1'] != data['password2']:
@@ -40,3 +35,12 @@ class SignupSerializer(serializers.ModelSerializer):
             user_type=validated_data['user_type'],
         )
 
+    # to_representation 함수는 serializing 에서 마지막에 실행되는 함수로 (강사님의 추측. 함수를 직접 실행해보고 알았다.)
+    # 최종적으로 dictionary 를 만들어준다
+    def to_representation(self, instance):
+        ret = super().to_representation()
+        data = {
+            'user': ret,
+            'token': instance.token,
+        }
+        return data
