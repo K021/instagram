@@ -54,10 +54,19 @@ FACEBOOK_APP_ID = config_secret_common['facebook']['app_id']
 FACEBOOK_APP_SECRET_CODE = config_secret_common['facebook']['secret_code']
 FACEBOOK_SCOPE = ['email', 'user_friends', 'public_profile']
 
+# Coolsms
+API_KEY = config_secret_common['coolsms']['api_key']
+API_SECRET = config_secret_common['coolsms']['api_secret']
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    '.elasticbeanstalk.com',
+    'insta-api.kimjooeon.com',
+]
 
 # DRF
 REST_FRAMEWORK = {
@@ -114,6 +123,11 @@ TEMPLATES = [
         },
     },
 ]
+CORS_ORIGIN_WHITELIST = (
+    'localhost:3001',
+    'front.localhost:8013',
+    'insta.kimjooeon.com',
+)
 
 WSGI_APPLICATION = 'config.wsgi.application'
 

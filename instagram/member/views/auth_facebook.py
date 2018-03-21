@@ -3,7 +3,7 @@ from typing import NamedTuple
 
 import requests
 from django.conf import settings
-from django.contrib.auth import login as dj_login, authenticate
+from django.contrib.auth import login as dj_login, authenticate, get_user_model
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.urls import reverse
@@ -13,6 +13,8 @@ __all__ = (
     'FrontFacebookLogin',
     'facebook_login',
 )
+
+User = get_user_model()
 
 
 class FrontFacebookLogin(View):

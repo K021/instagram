@@ -1,5 +1,6 @@
 from pprint import pprint
 
+from django.conf import settings
 from sdk.api.message import Message
 from sdk.exceptions import CoolsmsException
 
@@ -12,8 +13,8 @@ def coolsms(receiver, message):
     :return:
     """
     # set api key, api secret
-    api_key = "NCSGLMHSQ2FTVZUA"
-    api_secret = "2ZNM5ZPZR07QHSLHVIFAH3XZR1GAGM2F"
+    api_key = settings.API_KEY
+    api_secret = settings.API_SECRET
 
     # 4 params(to, from, type, text) are mandatory. must be filled
     # params = {

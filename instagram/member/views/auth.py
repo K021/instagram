@@ -5,6 +5,7 @@ from typing import NamedTuple
 import requests
 from django.conf import settings
 from django.contrib.auth import get_user_model, logout as dj_logout, login as dj_login, authenticate
+from django.contrib.auth.backends import ModelBackend
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -86,7 +87,7 @@ def signup(request):
             # 없으면 User 생성
             user = form.save()
             # user = form.signup()
-            dj_login(request, user)
+            dj_login(request, user, backend='django.contrib.auth.backends.ModelBackend')
             return redirect('main')
     else:
         form = SignupForm()
