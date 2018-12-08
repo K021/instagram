@@ -17,5 +17,6 @@ class UserAdmin(BaseUserAdmin):
     )
     add_form = SignupForm
 
+
 admin.site.register(User, UserAdmin)
 admin.site.register(Relation)
